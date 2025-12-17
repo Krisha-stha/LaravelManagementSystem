@@ -9,10 +9,10 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     public function Dashboard(){
-        if(Auth::check()&&Auth::user()->user_type=='user'){
+        if(Auth::check()&&Auth::user()->usertype=='user'){
              return view('dashboard');
         }
-       else if(Auth::check()&&Auth::user()->user_type=='admin'){
+       else if(Auth::check()&&Auth::user()->usertype=='admin'){
              return view('admin.dashboard');
         }
         else{
