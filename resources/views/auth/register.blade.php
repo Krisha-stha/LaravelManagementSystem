@@ -24,6 +24,11 @@
                             type="password"
                             name="password"
                             required autocomplete="new-password" />
+                        
+            <p class="text-sm text-gray-500 mt-1">
+                Password must be at least 8 characters, include an uppercase letter,
+                a number, and a symbol.
+            </p>
 
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
