@@ -15,6 +15,11 @@ Route::get('/', function () {
 
 Route::view('/home', 'home');
 
+Route::get('/about/{name}', function($name){
+    echo $name;
+    return view('about', ['name'=>$name]);
+});
+
 Route::get('/dashboard', [UserController::class, 'Dashboard'])->middleware(['auth', 'verified']) -> name('dashboard');
 
 Route::middleware('auth', 'admin')->group(function(){
