@@ -9,7 +9,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Route::get('/home', function(){
+//     return view('home');
+// });
 
+Route::view('/home', 'home');
 
 Route::get('/dashboard', [UserController::class, 'Dashboard'])->middleware(['auth', 'verified']) -> name('dashboard');
 
