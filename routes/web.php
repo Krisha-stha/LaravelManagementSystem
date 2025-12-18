@@ -15,6 +15,8 @@ Route::get('/', function () {
 
 Route::view('/home', 'home');
 
+Route::view('/about', 'home');
+
 Route::get('/about/{name}', function($name){
     echo $name;
     return view('about', ['name'=>$name]);
@@ -25,6 +27,12 @@ Route::get('/dashboard', [UserController::class, 'Dashboard'])->middleware(['aut
 Route::middleware('auth', 'admin')->group(function(){
    
 });
+
+Route::middleware(['auth', 'admin'])->group(function(){
+    Route::get('/addcategory', [AdminController::class, 'addcategory'])->name('admin.addcategory');
+    Route::post('/addcategory', [AdminController::class, 'postaddcategory'])->name('admin.postaddcategory');  
+});
+
 
 Route::middleware('auth')->group(function(){
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
