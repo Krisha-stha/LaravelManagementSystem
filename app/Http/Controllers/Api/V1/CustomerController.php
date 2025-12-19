@@ -8,18 +8,34 @@ use App\Models\Customer;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\CustomerResource;
 use App\Http\Resources\V1\CustomerCollection;
+use App\Services\V1\CustomerQuery;
+use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
+    // public function index()
+    // {
+    //     $filter = new CustomerQuery();
+    //     $queryItems = $filter ->transform($request); //[['column', 'operator', 'value']]
+
+    //     if (count($queryItems)==0){
+    //                 return new CustomerCollection(Customer::paginate());
+    //     }else{
+    //                 return new CustomerCollection(Customer::where($queryItems)->paginate());
+
+    //     }
+
+    //     // Customer::where($queryItems);
+
+    // }
+    public function index(Request $request){
         $filter = new CustomerQuery();
         $queryItems = $filter ->transform($request); //[['column', 'operator', 'value']]
 
-        if (count($queryItem)==0){
+        if (count($queryItems)==0){
                     return new CustomerCollection(Customer::paginate());
         }else{
                     return new CustomerCollection(Customer::where($queryItems)->paginate());
@@ -27,7 +43,6 @@ class CustomerController extends Controller
         }
 
         // Customer::where($queryItems);
-
     }
 
     /**
