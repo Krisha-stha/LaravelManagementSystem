@@ -4,40 +4,39 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\HomeController;
 
 Route::get('/', function () {
-    return view('welcome');
+  return view('welcome');
 });
 
-// Route::get('/home', function(){
-//     return view('home');
-// });
+Route::get('/home', [HomeController::class, 'index']);
 
-Route::view('/home', 'home');
+Route::post('/upload', [HomeController::class, 'upload']);
 
-Route::view('/about', 'home');
+Route::get('/view', [HomeController::class, 'view']);
 
-Route::get('/about/{name}', function($name){
-    echo $name;
-    return view('about', ['name'=>$name]);
-});
+Route::get('/delete/{id}', [HomeController::class, 'delete']);
+
+Route::get('/update_view/{id}', [HomeController::class, 'update_view']);
+
+Route::post('/update/{id}', [HomeController::class, 'update']);
+
+Route::get('/search', [HomeController::class,'search']);
+
+Route::get('/', [HomeController::class, 'welcome']);
 
 Route::get('/dashboard', [UserController::class, 'Dashboard'])->middleware(['auth', 'verified']) -> name('dashboard');
 
-Route::middleware('auth', 'admin')->group(function(){
-   
-});
-
 Route::middleware(['auth', 'admin'])->group(function(){
-    Route::get('/addcategory', [AdminController::class, 'addcategory'])->name('admin.addcategory');
-    Route::post('/addcategory', [AdminController::class, 'postaddcategory'])->name('admin.postaddcategory');  
+  Route::get('/addcategory', [AdminController::class, 'addcategory'])->name('admin.addcategory');
+  Route::post('/addcategory', [AdminController::class, 'postaddcategory'])->name('admin.postaddcategory');  
 });
-
 
 Route::middleware('auth')->group(function(){
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');       
-    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');     
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy'); 
+  Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');       
+  Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');     
+  Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy'); 
 });
 
 require __DIR__.'/auth.php';
