@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\StudentApiController;
+use App\Http\Controllers\Api\CategoryApiController;
 
 Route::get('/students', [StudentApiController::class, 'index']);
 Route::get('/students/{id}', [StudentApiController::class, 'show']);
@@ -16,8 +17,8 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-// api/V1
-Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], function(){
-    Route::apiResource('customers', CustomerController::class);
-    Route::apiResource('invoices', InvoiceController::class);
-});
+Route::get('/categories', [CategoryApiController::class, 'index']);
+Route::get('/categories/{category}', [CategoryApiController::class, 'show']);
+Route::post('/categories', [CategoryApiController::class, 'store']);
+Route::put('/categories/{category}', [CategoryApiController::class, 'update']);
+Route::delete('/categories/{category}', [CategoryApiController::class, 'destroy']);

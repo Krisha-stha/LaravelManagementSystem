@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('admin.addcategory')" :active="request()->routeIs('admin.addcategory')">
                         {{ __('Add Category') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('admin.viewcategory')" :active="request()->routeIs('admin.viewcategory')">
+                        {{ __('View Category') }}
+                    </x-nav-link>
                 </div>
             </div>
 
