@@ -11,13 +11,8 @@ class ProductController extends Controller
 {
   public function index()
     {
-      $categories = Category::all();
-      $products = Product::where('status', 1)
-          ->with('category')
-          ->latest()
-          ->paginate(12);
-
-      return view('user.products.index', compact('products', 'categories'));
+      $categories = Category::where('status', 1)->get(); 
+      return view('user.products.index', compact('categories'));
     }
 
     public function show(Product $product)

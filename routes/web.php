@@ -6,6 +6,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\User\ProductController;
+use App\Http\Controllers\CartController;
+
 
 Route::get('/', function () {
   return view('welcome');
@@ -55,7 +57,13 @@ Route::middleware('auth')->group(function(){
   Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy'); 
 });
 
-
+Route::middleware('auth')->group(function () {
+    Route::post('/cart/add/{product}', [CartController::class, 'add'])->name('cart.add');
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart/increase/{id}', [CartController::class, 'increase'])->name('cart.increase');
+    Route::post('/cart/decrease/{id}', [CartController::class, 'decrease'])->name('cart.decrease');
+    Route::post('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+});
 
 require __DIR__.'/auth.php';
 

@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\StudentApiController;
 use App\Http\Controllers\Api\CategoryApiController;
 
@@ -22,3 +22,9 @@ Route::get('/categories/{category}', [CategoryApiController::class, 'show']);
 Route::post('/categories', [CategoryApiController::class, 'store']);
 Route::put('/categories/{category}', [CategoryApiController::class, 'update']);
 Route::delete('/categories/{category}', [CategoryApiController::class, 'destroy']);
+
+Route::get('/cart', [CartController::class, 'index']);
+Route::post('/cart/{id}', [CartController::class, 'add']);
+Route::patch('/cart/{id}/increase', [CartController::class, 'increase']);
+Route::patch('/cart/{id}/decrease', [CartController::class, 'decrease']);
+Route::delete('/cart/{id}', [CartController::class, 'destroy']);
